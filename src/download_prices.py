@@ -1,15 +1,19 @@
 import yfinance as yf
+import pandas as pd
 
-ticker = "SPY"
+tickers = ["SPY", "QQQ", "VTI"]
 
-data = yf.download(
-    ticker,
-    period="1y",
-    interval="1d"
-)
+for ticker in tickers:
+    data = yf.download(
+        ticker,
+        period="1y",
+        interval="1d",
+        auto_adjust=False,
+        progress=False,
+    )
 
-print(data.head())
+    print(f"Downloaded {ticker}")
+    print(data.head())
 
-data.to_csv("data/spy.csv")
-
-print("Saved to data/spy.csv")
+    data.to_csv(f"data/{ticker.lower()}.csv")
+    print(f"Saved to data/{ticker.lower()}.csv")
